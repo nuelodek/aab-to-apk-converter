@@ -1,0 +1,9 @@
+node_modules/
+uploads/
+node_modules/
+*.keystore
+*.apks
+*.apk
+*.jks
+*.zip
+*.tar.gz    
