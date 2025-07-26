@@ -1,27 +1,61 @@
+<!-- Save this as index.html and replace the ad client and slot IDs with yours -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-adsense-account" content="ca-pub-4620725408371715">
   <title>AAB to APK Converter</title>
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4620725408371715"
+     crossorigin="anonymous"></script>
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-4620725408371715",
+      enable_page_level_ads: true
+    });
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white shadow-2xl rounded-3xl p-8 max-w-xl w-full backdrop-blur-sm bg-opacity-90">
-    <h1 class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">AAB to APK Converter</h1>
+  <div class="flex w-full max-w-7xl gap-4">
 
-    <form id="uploadForm" class="space-y-6" enctype="multipart/form-data" action="/convert" method="POST">
-      <div class="relative">
-        <label class="block font-semibold mb-2 text-gray-700">Upload AAB File</label>
-        <div class="border-2 border-dashed border-blue-300 rounded-xl p-8 text-center hover:border-blue-500 transition-colors cursor-pointer">
-          <input type="file" name="aab" accept=".aab" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-          <div class="text-blue-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-            </svg>
-            <p class="font-medium">Drag & drop your AAB file here</p>
-            <p class="text-sm text-gray-500 mt-1">or click to browse</p>
+    <!-- Left Ad -->
+    <div class="hidden lg:block w-1/6">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4620725408371715"
+           data-ad-slot="1111111111"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 bg-white shadow-2xl rounded-3xl p-8 backdrop-blur-sm bg-opacity-90">
+      <h1 class="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-transparent bg-clip-text">
+        AAB to APK Converter
+      </h1>
+
+      <form id="uploadForm" class="space-y-6" enctype="multipart/form-data" action="/convert" method="POST">
+        <!-- AAB Upload -->
+        <div class="relative">
+          <label class="block font-semibold mb-2 text-gray-700">Upload AAB File</label>
+          <div class="border-2 border-dashed border-blue-300 rounded-xl p-8 text-center relative">
+            <input id="aabInput" type="file" name="aab" accept=".aab" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+            <div class="text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+              <p class="font-medium">Drag & drop your AAB file here</p>
+              <p class="text-sm text-gray-500 mt-1">or click to browse</p>
+            </div>
           </div>
+          <p id="aabFileName" class="mt-2 text-sm text-gray-600 italic"></p>
+
+          <!-- Progress Bar -->
           <div id="uploadProgress" class="mt-4 hidden">
             <div class="w-full bg-gray-200 rounded-full h-2.5">
               <div class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
@@ -29,140 +63,122 @@
             <p class="text-sm text-gray-600 mt-2">Uploading: <span>0%</span></p>
           </div>
         </div>
-      </div>
 
-      <div>
-        <label class="block font-semibold mb-2 text-gray-700">Mode</label>
-        <select name="mode" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
-          <option value="debug">Casual (Auto Debug Signing)</option>
-          <option value="custom">Developer (Upload Keystore)</option>
-        </select>
-      </div>
+        <!-- Mode Selector -->
+        <div>
+          <label class="block font-semibold mb-2 text-gray-700">Mode</label>
+          <select name="mode" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <option value="debug">Casual (Auto Debug Signing)</option>
+            <option value="custom">Developer (Upload Keystore)</option>
+          </select>
+        </div>
 
-      <div id="devFields" class="hidden space-y-4">
-        <div class="relative">
-          <label class="block font-semibold mb-2 text-gray-700">Keystore File</label>
-          <div class="border-2 border-dashed border-blue-300 rounded-xl p-6 text-center hover:border-blue-500 transition-colors cursor-pointer">
-            <input type="file" name="keystore" accept=".jks,.keystore" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-            <p class="text-blue-600 font-medium">Drop keystore file here or click to browse</p>
+        <!-- Developer Fields -->
+        <div id="devFields" class="hidden space-y-4">
+          <div>
+            <label class="block font-semibold mb-2 text-gray-700">Keystore File</label>
+            <div class="border-2 border-dashed border-blue-300 rounded-xl p-6 text-center relative">
+              <input id="keystoreInput" type="file" name="keystore" accept=".jks,.keystore" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+              <p class="text-blue-600 font-medium">Drop keystore file here or click to browse</p>
+            </div>
+            <p id="keystoreFileName" class="mt-2 text-sm text-gray-600 italic"></p>
+          </div>
+          <div>
+            <label class="block font-semibold mb-2 text-gray-700">Key Alias</label>
+            <input type="text" name="alias" class="w-full p-3 border border-gray-300 rounded-xl" placeholder="Enter key alias" />
+          </div>
+          <div>
+            <label class="block font-semibold mb-2 text-gray-700">Keystore Password</label>
+            <input type="password" name="ks_pass" class="w-full p-3 border border-gray-300 rounded-xl" />
+          </div>
+          <div>
+            <label class="block font-semibold mb-2 text-gray-700">Key Password</label>
+            <input type="password" name="key_pass" class="w-full p-3 border border-gray-300 rounded-xl" />
           </div>
         </div>
-        <div>
-          <label class="block font-semibold mb-2 text-gray-700">Key Alias</label>
-          <input type="text" name="alias" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter key alias" />
-        </div>
-        <div>
-          <label class="block font-semibold mb-2 text-gray-700">Keystore Password</label>
-          <input type="password" name="ks_pass" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter keystore password" />
-        </div>
-        <div>
-          <label class="block font-semibold mb-2 text-gray-700">Key Password</label>
-          <input type="password" name="key_pass" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter key password" />
-        </div>
-      </div>
 
-      <button type="submit" id="convertBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white w-full py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transform hover:scale-[1.02] transition-all duration-200 font-semibold">
-        Convert AAB to APK
-      </button>
-    </form>
+        <!-- Submit Button -->
+        <button type="submit" id="convertBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white w-full py-3 rounded-xl font-semibold hover:scale-[1.02] transition-all">
+          Convert AAB to APK
+        </button>
+      </form>
 
-    <div id="output" class="mt-6 text-sm text-gray-700 rounded-xl bg-gray-50 p-4"></div>
+      <div id="output" class="mt-6 text-sm text-gray-700 bg-gray-50 p-4 rounded-xl"></div>
+    </div>
+
+    <!-- Right Ad -->
+    <div class="hidden lg:block w-1/6">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4620725408371715"
+           data-ad-slot="2222222222"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
   </div>
 
   <script>
+    const aabInput = document.getElementById("aabInput");
+    const aabFileName = document.getElementById("aabFileName");
+    const keystoreInput = document.getElementById("keystoreInput");
+    const keystoreFileName = document.getElementById("keystoreFileName");
+
+    aabInput.addEventListener("change", () => {
+      aabFileName.textContent = aabInput.files.length ? `Selected file: ${aabInput.files[0].name}` : "";
+    });
+
+    keystoreInput?.addEventListener("change", () => {
+      keystoreFileName.textContent = keystoreInput.files.length ? `Selected file: ${keystoreInput.files[0].name}` : "";
+    });
+
     const modeSelect = document.querySelector('select[name="mode"]');
     const devFields = document.getElementById("devFields");
-    const uploadProgress = document.getElementById("uploadProgress");
-    const progressBar = uploadProgress.querySelector(".bg-blue-600");
-    const progressText = uploadProgress.querySelector("span");
-    const convertBtn = document.getElementById("convertBtn");
-    const output = document.getElementById("output");
-
     modeSelect.addEventListener("change", () => {
       devFields.classList.toggle("hidden", modeSelect.value !== "custom");
     });
 
-    document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+    const form = document.getElementById("uploadForm");
+    const output = document.getElementById("output");
+    const uploadProgress = document.getElementById("uploadProgress");
+    const progressBar = uploadProgress.querySelector(".bg-blue-600");
+    const progressText = uploadProgress.querySelector("span");
+    const convertBtn = document.getElementById("convertBtn");
+
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
-      const form = new FormData(this);
-      
+      const formData = new FormData(form);
+      output.innerHTML = "Processing...";
       uploadProgress.classList.remove("hidden");
-      convertBtn.disabled = true;
-      convertBtn.innerHTML = '<span class="animate-pulse">Converting...</span>';
-      output.innerHTML = '<div class="flex items-center"><div class="animate-spin mr-2 h-5 w-5 border-t-2 border-b-2 border-blue-600 rounded-full"></div>Converting AAB to APK...</div>';
 
-      try {
-        const xhr = new XMLHttpRequest();
-        
-        xhr.upload.onprogress = (event) => {
-          if (event.lengthComputable) {
-            const percentComplete = (event.loaded / event.total) * 100;
-            progressBar.style.width = percentComplete + '%';
-            progressText.textContent = Math.round(percentComplete) + '%';
-          }
-        };
+      const xhr = new XMLHttpRequest();
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const percent = (e.loaded / e.total) * 100;
+          progressBar.style.width = percent + "%";
+          progressText.textContent = Math.round(percent) + "%";
+        }
+      };
 
-        xhr.onload = async () => {
-          if (xhr.status === 200) {
-            const data = JSON.parse(xhr.responseText);
-            
-            if (data.serverLogs) {
-              output.innerHTML = '<div class="whitespace-pre-wrap font-mono text-xs">' + data.serverLogs + '</div>';
-            }
-            
-            output.innerHTML += '<div class="mt-4">' + data.message + '</div>';
-            
-            if (data.error) {
-              output.innerHTML += '<div class="text-red-600 mt-2">Error Details: ' + data.error + '</div>';
-            }
-            
-            if (data.link) {
-              output.innerHTML += `<div class="mt-4"><a href="/downloads/${data.link.split('/').pop()}" class="text-blue-600 hover:text-blue-800 underline">Download APK</a></div>`;
-            }
-          } else {
-            output.innerHTML = '❌ Conversion failed. Server Response: ' + xhr.status + ' ' + xhr.statusText;
-          }
-          convertBtn.disabled = false;
-          convertBtn.innerHTML = 'Convert AAB to APK';
-          uploadProgress.classList.add("hidden");
-        };
-
-        xhr.onerror = () => {
-          output.innerHTML = '❌ Network error occurred. Please check your connection and try again.';
-          convertBtn.disabled = false;
-          convertBtn.innerHTML = 'Convert AAB to APK';
-          uploadProgress.classList.add("hidden");
-        };
-
-        xhr.open('POST', '/convert', true);
-        xhr.send(form);
-      } catch (error) {
-        output.innerHTML = '❌ An error occurred: ' + error.message + '\n\nStack trace: ' + error.stack;
-        convertBtn.disabled = false;
-        convertBtn.innerHTML = 'Convert AAB to APK';
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          output.innerHTML = data.link
+            ? `<p>${data.message}</p><a href="${data.link}" download class="text-blue-600 underline">Download APK</a>`
+            : `<p>${data.message}</p>`;
+        } else {
+          output.innerHTML = "❌ Error: " + xhr.statusText;
+        }
         uploadProgress.classList.add("hidden");
-      }
-    });
+      };
 
-    const dropZones = document.querySelectorAll('input[type="file"]');
-    dropZones.forEach(input => {
-      const dropZone = input.parentElement;
-      
-      dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('border-blue-500', 'bg-blue-50');
-      });
+      xhr.onerror = () => {
+        output.innerHTML = "❌ Upload failed.";
+        uploadProgress.classList.add("hidden");
+      };
 
-      dropZone.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
-      });
-
-      dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
-        input.files = e.dataTransfer.files;
-      });
+      xhr.open("POST", "/convert");
+      xhr.send(formData);
     });
   </script>
 </body>
