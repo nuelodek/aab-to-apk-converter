@@ -108,7 +108,7 @@ app.post('/convert', upload.fields([
       console.log('🔍 Looking for universal.apk at:', apkPath);
       
       if (fs.existsSync(apkPath)) {
-        const link = `/download/${apkPath}`;
+        const link = `/downloads/${id}_apk/universal.apk`;
         console.log('✅ Universal APK found, download link created:', link);
         res.json({ message: '✅ Conversion successful!', link });
       } else {
